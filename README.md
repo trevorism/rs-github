@@ -21,3 +21,7 @@ This is a solution to ResultStack Github search prompt.
 [Back-end Unit Tests](https://github.com/trevorism/rs-github/tree/master/src/test)
 
 [Back-end Acceptance Tests](https://github.com/trevorism/rs-github/tree/master/src/acceptance)
+
+##Notes
+
+Uses: https://docs.github.com/en/rest/reference/search#search-users
