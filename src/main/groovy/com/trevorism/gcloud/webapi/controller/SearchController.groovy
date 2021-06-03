@@ -20,7 +20,12 @@ class SearchController {
     @Produces(MediaType.APPLICATION_JSON)
     @Consumes(MediaType.APPLICATION_JSON)
     List<SearchResult> search(SearchRequest request){
-        [new SearchResult(username: "trevorism", avatarUrl: "https://avatars.githubusercontent.com/u/1159177?v=4", email: "trevorism@gmail.com", countOfPublicRepos: 66, location: "VA, USA", realName: "Trevor Brooks", creationDate: new Date())]
+        [
+                new SearchResult(username: "trevorism", avatarUrl: "https://avatars.githubusercontent.com/u/1159177?v=4", email: "trevorism@gmail.com", countOfPublicRepos: 66, location: "VA, USA", realName: "Trevor Brooks", creationDate: new Date()),
+                new SearchResult(username: "black7375", avatarUrl: "https://avatars.githubusercontent.com/u/25581533?v=4", email: "black7375@gmail.com", countOfPublicRepos: 46, location: "Seoul, Korea", realName: "MS_Y", creationDate: new Date(), lastUpdateDate: new Date()),
+
+
+        ]
     }
 
 }
