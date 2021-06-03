@@ -7,29 +7,30 @@
       </div>
     </section>
 
-    <section class="section">
-      <b-field label="Search github by username or email">
-        <b-input :value="searchBarValue" class="m-3">
+    <section class="container">
+      <b-field label="Search github by username or email" class="formWidth">
+        <b-input :value="searchBarValue" class="formWidth m-3">
         </b-input>
-        <button class="button is-info m-3" :disabled="disabled" @click="invokeButton">
+        <button class="button is-info m-3" @click="invokeButton">
           Submit
-          <b-loading :is-full-page="false" :active.sync="disabled" :can-cancel="false"></b-loading>
         </button>
-        <button class="button is-danger m-3" :disabled="disabled" @click="invokeButton">
+        <button class="button is-danger m-3" @click="clear">
           Clear Results
-          <b-loading :is-full-page="false" :active.sync="disabled" :can-cancel="false"></b-loading>
         </button>
       </b-field>
     </section>
 
     <section class="section">
-      <Grid></Grid>
+      <div v-if="details.length">
+        <Grid :details="details"></Grid>
+      </div>
     </section>
 
   </div>
 </template>
 
 <script>
+import axios from 'axios'
 import Grid from './components/Grid.vue'
 
 export default {
@@ -39,12 +40,22 @@ export default {
   },
   data () {
     return {
-      searchBarValue: 'hi'
+      searchBarValue: '',
+      details: []
     }
   },
   methods: {
     invokeButton: function () {
-      this.searchBarValue = 'bye'
+      axios.post('/api/result/', {value: this.searchBarValue})
+        .then(response => {
+          this.details = response.data
+        })
+        .catch(() => {
+          console.log('Error loading status details. Please refresh.')
+        })
+    },
+    clear: function () {
+      this.details = []
     }
   }
 
@@ -54,5 +65,8 @@ export default {
 <style>
 body::-webkit-scrollbar {
   display: none;
+}
+.formWidth {
+  width: 400px
 }
 </style>
