@@ -8,7 +8,7 @@
     </section>
 
     <section class="container">
-      <b-field label="Search github by username or email" class="formWidth">
+      <b-field label="Search github by a user's name or email" class="formWidth">
         <b-input :value="searchBarValue" class="formWidth m-3">
         </b-input>
         <button class="button is-info m-3" @click="invokeButton">
