@@ -9,7 +9,7 @@
 
     <section class="container">
       <b-field label="Search github by a user's name or email" class="formWidth">
-        <b-input :value="searchBarValue" class="formWidth m-3">
+        <b-input v-model="searchBarValue" class="formWidth m-3">
         </b-input>
         <button class="button is-info m-3" @click="invokeButton">
           Submit
@@ -21,8 +21,12 @@
     </section>
 
     <section class="section">
-      <div v-if="details.length">
-        <Grid :details="details"></Grid>
+
+      <div v-if="showGrid">
+        <Grid :searchBarValue="searchBarValue" :key="componentKey"></Grid>
+      </div>
+      <div v-if="inError">
+        Unable to load results. Please contact site admin.
       </div>
     </section>
 
@@ -30,7 +34,6 @@
 </template>
 
 <script>
-import axios from 'axios'
 import Grid from './components/Grid.vue'
 
 export default {
@@ -41,21 +44,19 @@ export default {
   data () {
     return {
       searchBarValue: '',
-      details: []
+      inError: false,
+      showGrid: false,
+      componentKey: 0
     }
   },
   methods: {
     invokeButton: function () {
-      axios.post('/api/result/', {value: this.searchBarValue})
-        .then(response => {
-          this.details = response.data
-        })
-        .catch(() => {
-          console.log('Error loading status details. Please refresh.')
-        })
+      this.componentKey += 1
+      this.showGrid = true
     },
     clear: function () {
-      this.details = []
+      this.showGrid = false
+      this.inError = false
     }
   }
 
