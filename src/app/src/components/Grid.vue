@@ -27,7 +27,7 @@
         {{ new Date(props.row.lastUpdateDate).toLocaleDateString()  }}
       </b-table-column>
     </b-table>
-
+    <div class="is-danger">{{errorMessage}}</div>
   </div>
 </template>
 
@@ -41,7 +41,8 @@ export default {
       loading: false,
       page: 1,
       total: 0,
-      details: []
+      details: [],
+      errorMessage: ''
     }
   },
   mounted () {
@@ -57,16 +58,16 @@ export default {
     },
     loadAsyncData () {
       this.loading = true
-      console.log('Here in loadAsyncData ' + this.page)
 
       axios.post('/api/result/', {value: this.searchBarValue, page: this.page})
         .then(response => {
           this.total = response.data.totalCount
           this.details = response.data.records
           this.loading = false
+          this.errorMessage = ''
         })
         .catch(() => {
-          console.log('Error loading grid. Please refresh.')
+          this.errorMessage = 'No results, please search again'
           this.details = []
           this.loading = false
         })

@@ -14,11 +14,13 @@ import org.apache.http.client.methods.CloseableHttpResponse
 
 import javax.ws.rs.*
 import javax.ws.rs.core.MediaType
+import java.util.logging.Logger
 
 @Api("Search Operations")
 @Path("result")
 class SearchController {
 
+    private static final Logger log = Logger.getLogger(SearchController.class.name)
     private HeadersHttpClient httpClient = new HeadersJsonHttpClient()
     private PropertiesProvider propertiesProvider = new PropertiesProvider()
     private Gson gson = new Gson()
@@ -31,6 +33,7 @@ class SearchController {
         if (!request.value) {
             throw new BadRequestException("Unable to process an empty search")
         }
+        log.info("Searching github for ${request}")
 
         CloseableHttpResponse response = httpClient.get("https://api.github.com/search/users?q=${request.value}+in:name+in:email&per_page=10&page=${request.page}", createAuthHeader())
         String json = ResponseUtils.getEntity(response)
@@ -44,7 +47,7 @@ class SearchController {
         return rsr
     }
 
-    @ApiOperation(value = "Gets user details")
+    @ApiOperation(value = "Gets user details from github")
     @GET
     @Produces(MediaType.APPLICATION_JSON)
     @Path("{username}")

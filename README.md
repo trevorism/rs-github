@@ -8,7 +8,15 @@
 
 This is a solution to ResultStack Github search prompt.
 
+Deployed to: https://rs-github-dot-trevorism-pushbutton.ue.r.appspot.com/
+
+## How to build
+
+./gradlew(.bat) clean build
+
 ## Links
+
+[API Help Page](https://rs-github-dot-trevorism-pushbutton.ue.r.appspot.com/api/help)
 
 [Jenkins Pipeline](https://trevorism-build.eastus.cloudapp.azure.com/job/rs-github/)
 
