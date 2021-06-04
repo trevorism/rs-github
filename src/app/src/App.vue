@@ -8,25 +8,19 @@
     </section>
 
     <section class="container">
-      <form>
         <b-field label="Search github by a user's name or email" class="formWidth">
-          <b-input required
-                   validation-message="Must be at least 2 characters"
-                   minlength="2"
-                   v-model="searchBarValue" class="formWidth m-3">
+          <b-input v-model="searchBarValue" class="formWidth m-3">
           </b-input>
-          <button class="button is-info m-3" @click="invokeButton">
+          <button class="button is-info m-3" type="submit" @click="invokeButton">
             Submit
           </button>
-          <button class="button is-danger m-3" @click="clear">
+          <button class="button is-danger m-3" type="submit" @click="clear">
             Clear Results
           </button>
         </b-field>
-      </form>
     </section>
 
     <section class="section">
-
       <div v-if="showGrid">
         <Grid :searchBarValue="searchBarValue" :key="componentKey"></Grid>
       </div>
@@ -56,8 +50,8 @@ export default {
   },
   methods: {
     invokeButton: function () {
-      this.componentKey += 1
       this.showGrid = true
+      this.componentKey += 1
     },
     clear: function () {
       this.showGrid = false

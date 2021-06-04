@@ -34,8 +34,9 @@ class SearchController {
             throw new BadRequestException("Unable to process an empty search")
         }
         log.info("Searching github for ${request}")
+        String urlEncoded = URLEncoder.encode(request.value, "UTF-8")
 
-        CloseableHttpResponse response = httpClient.get("https://api.github.com/search/users?q=${request.value}+in:name+in:email&per_page=10&page=${request.page}", createAuthHeader())
+        CloseableHttpResponse response = httpClient.get("https://api.github.com/search/users?q=${urlEncoded}+in:name+in:email&per_page=10&page=${request.page}", createAuthHeader())
         String json = ResponseUtils.getEntity(response)
         GithubResponse githubResponse = gson.fromJson(json, GithubResponse)
 

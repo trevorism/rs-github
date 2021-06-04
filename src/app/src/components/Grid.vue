@@ -27,7 +27,7 @@
         {{ new Date(props.row.lastUpdateDate).toLocaleDateString()  }}
       </b-table-column>
     </b-table>
-    <div class="is-danger">{{errorMessage}}</div>
+    <div>{{errorMessage}}</div>
   </div>
 </template>
 
@@ -41,8 +41,8 @@ export default {
       loading: false,
       page: 1,
       total: 0,
-      details: [],
-      errorMessage: ''
+      errorMessage: '',
+      details: []
     }
   },
   mounted () {
@@ -58,16 +58,17 @@ export default {
     },
     loadAsyncData () {
       this.loading = true
-
       axios.post('/api/result/', {value: this.searchBarValue, page: this.page})
         .then(response => {
           this.total = response.data.totalCount
           this.details = response.data.records
           this.loading = false
-          this.errorMessage = ''
+          if (!this.details) {
+            this.errorMessage = 'No results found, please try again'
+          }
         })
         .catch(() => {
-          this.errorMessage = 'No results, please search again'
+          this.errorMessage = 'No results found, please try again'
           this.details = []
           this.loading = false
         })
