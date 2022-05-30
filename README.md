@@ -6,7 +6,7 @@
 ![GitHub language count](https://img.shields.io/github/languages/count/trevorism/rs-github)
 ![GitHub top language](https://img.shields.io/github/languages/top/trevorism/rs-github)
 
-This is a solution to ResultStack Github search prompt.
+This is a solution to ResultStack Github search prompt
 
 Deployed to: https://rs-github-dot-trevorism-pushbutton.ue.r.appspot.com/
 
